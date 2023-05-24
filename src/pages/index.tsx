@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import Display from "@/components/Display";
 import Prepare from "@/components/Prepare";
 import Result from "@/components/Result";

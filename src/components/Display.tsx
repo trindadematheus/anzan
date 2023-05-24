@@ -1,15 +1,12 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import useSound from "use-sound";
 
 import { useSettings } from "@/hooks/use-settings";
 
 function Display() {
-  const { settings, setActiveStep, setResult } = useSettings();
+  const { settings, setActiveStep, setResult, numberList } = useSettings();
 
-  const initialNumber = generateRandomNumber();
-
-  const [currentNumber, setCurrentNumber] = useState(initialNumber);
-  const numberList = useRef<number[]>([initialNumber]);
+  const [currentNumber, setCurrentNumber] = useState(numberList[0]);
 
   const [play, { duration }] = useSound("/sounds/beep.mp3", { volume: 0.8 });
 
@@ -20,45 +17,30 @@ function Display() {
   }, [duration]);
 
   useEffect(() => {
-    const interval = setInterval(
-      () => generateNumber(),
-      settings.speedSeconds * 1000
-    );
-
-    return () => clearInterval(interval);
+    showNumbers();
   }, []);
 
   useEffect(() => {
     play();
   }, [currentNumber]);
 
-  function generateRandomNumber() {
-    let range: number = 1;
+  function showNumbers() {
+    let idx = 1;
 
-    if (settings.digitsPerNumber === 1) {
-      range = 9;
-    } else if (settings.digitsPerNumber === 2) {
-      range = 99;
-    } else if (settings.digitsPerNumber === 3) {
-      range = 999;
-    }
+    const interval = setInterval(() => {
+      if (!numberList[idx]) {
+        const result = numberList.reduce((acc, curr) => acc + curr, 0);
 
-    return Math.floor(Math.random() * range);
-  }
+        clearInterval(interval);
+        setResult(result);
+        setActiveStep(3);
 
-  function generateNumber() {
-    if (numberList.current.length === settings.numbersToDisplay) {
-      const result = numberList.current.reduce((acc, curr) => acc + curr, 0);
+        return;
+      }
 
-      setResult(result);
-      setActiveStep((state) => state + 1);
-      return;
-    }
-
-    const newNumber = generateRandomNumber();
-
-    setCurrentNumber(newNumber);
-    numberList.current.push(newNumber);
+      setCurrentNumber(numberList[idx]);
+      idx += 1;
+    }, settings.speedSeconds * 1000);
   }
 
   return (

@@ -1,18 +1,24 @@
-import { useState } from "react";
-
-import TextInput from "./TextInput";
 import { useSettings } from "@/hooks/use-settings";
+import generateRandomNumberArray from "@/utils/generate-numbers";
+import TextInput from "./TextInput";
+import Select from "./Select";
 
 function Settings() {
-  const { settings, setSettings, setActiveStep } = useSettings();
+  const { settings, setSettings, setActiveStep, setNumberList } = useSettings();
 
   function handleStart() {
+    const numbers = generateRandomNumberArray(
+      settings.digitsPerNumber,
+      settings.numbersToDisplay
+    );
+
+    setNumberList(numbers);
     setActiveStep((state) => state + 1);
   }
 
   return (
     <>
-      <TextInput
+      <Select
         value={settings.digitsPerNumber}
         onChange={(evt) =>
           setSettings((state) => ({
@@ -21,8 +27,12 @@ function Settings() {
           }))
         }
         label="Digits per number"
-        type="number"
-      />
+      >
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </Select>
       <TextInput
         value={settings.speedSeconds}
         onChange={(evt) =>

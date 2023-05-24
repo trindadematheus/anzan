@@ -1,4 +1,5 @@
-import React, { useState, createContext, useContext } from "react";
+import generateRandomNumberArray from "@/utils/generate-numbers";
+import React, { useState, createContext, useContext, useEffect } from "react";
 
 interface SettingsProviderProps {
   children: React.ReactNode;
@@ -17,6 +18,8 @@ interface SettingsContextProps {
   setSettings: React.Dispatch<React.SetStateAction<GameSettings>>;
   result: number;
   setResult: React.Dispatch<React.SetStateAction<number>>;
+  numberList: number[];
+  setNumberList: React.Dispatch<React.SetStateAction<number[]>>;
 }
 
 const SettingsContext = createContext<SettingsContextProps | null>(null);
@@ -24,6 +27,7 @@ const SettingsContext = createContext<SettingsContextProps | null>(null);
 export function SettingsProvider({ children }: SettingsProviderProps) {
   const [activeStep, setActiveStep] = useState(0);
   const [result, setResult] = useState(0);
+  const [numberList, setNumberList] = useState<number[]>([]);
   const [settings, setSettings] = useState<GameSettings>({
     digitsPerNumber: 1,
     speedSeconds: 1,
@@ -39,6 +43,8 @@ export function SettingsProvider({ children }: SettingsProviderProps) {
         setSettings,
         result,
         setResult,
+        numberList,
+        setNumberList,
       }}
     >
       {children}
