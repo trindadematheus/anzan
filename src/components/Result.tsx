@@ -23,6 +23,7 @@ function Result() {
         setCurrentPoints((state) => state + 1);
       } else {
         setAnswerStatus("wrong");
+        setCurrentPoints(0);
       }
     } else {
       setActiveStep(0);
