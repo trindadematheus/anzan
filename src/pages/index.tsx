@@ -18,14 +18,14 @@ function HomePage() {
             <div className="flex gap-2 justify-between items-center mb-4">
               <div className="stats w-full bg-base-200 shadow">
                 <div className="stat">
-                  <div className="stat-title">Current points</div>
                   <div className="stat-value">{currentPoints}</div>
+                  <div className="stat-title">Scoring</div>
                 </div>
               </div>
               <div className="stats w-full bg-base-200 shadow">
                 <div className="stat">
-                  <div className="stat-title">Best points</div>
                   <div className="stat-value">{bestPoint}</div>
+                  <div className="stat-title">Record</div>
                 </div>
               </div>
             </div>
