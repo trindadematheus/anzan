@@ -1,10 +1,13 @@
 import { FormEvent, useState } from "react";
 
-import { useSettings } from "@/hooks/use-settings";
 import TextInput from "./TextInput";
+
+import { useSettings } from "@/hooks/use-settings";
+import { useStats } from "@/hooks/use-stats";
 
 function Result() {
   const { result, setActiveStep } = useSettings();
+  const { setCurrentPoints } = useStats();
 
   const [answer, setAnswer] = useState("");
   const [answerStatus, setAnswerStatus] = useState<"not" | "right" | "wrong">(
@@ -17,6 +20,7 @@ function Result() {
     if (answerStatus === "not") {
       if (parseInt(answer) === result) {
         setAnswerStatus("right");
+        setCurrentPoints((state) => state + 1);
       } else {
         setAnswerStatus("wrong");
       }

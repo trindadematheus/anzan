@@ -1,5 +1,4 @@
-import generateRandomNumberArray from "@/utils/generate-numbers";
-import React, { useState, createContext, useContext, useEffect } from "react";
+import React, { useState, createContext, useContext } from "react";
 
 interface SettingsProviderProps {
   children: React.ReactNode;

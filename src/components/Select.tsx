@@ -11,10 +11,12 @@ function Select({ label, children, ...props }: SelectProps) {
       <div className="form-control w-full">
         {!!label && (
           <label className="label">
-            <span className="label-text">Pick the best fantasy franchise</span>
+            <span className="label-text">{label}</span>
           </label>
         )}
-        <select {...props} className="select select-bordered">{children}</select>
+        <select {...props} className="select select-bordered">
+          {children}
+        </select>
       </div>
     </>
   );

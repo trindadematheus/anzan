@@ -2,6 +2,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 
 import { SettingsProvider } from "@/hooks/use-settings";
+import { StatsProvider } from "@/hooks/use-stats";
 import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -12,7 +13,9 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
 
       <SettingsProvider>
-        <Component {...pageProps} />
+        <StatsProvider>
+          <Component {...pageProps} />
+        </StatsProvider>
       </SettingsProvider>
     </>
   );
